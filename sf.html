@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<style>
+     html {
+        background-size: cover;
+        height:auto;
+        background-color: #000;
+    }
+
+    * {
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-font-smoothing: antialiased;
+        -moz-font-smoothing: antialiased;
+        -o-font-smoothing: antialiased;
+        font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+    }
+
+    body {
+        color: #C0C0C0;
+        background: #fff;
+        font-family: Arial, sans-serif;
+        
+        justify-content: center; /* Center the form horizontally */
+        align-items: center; /* Center the form vertically */
+        min-height: 100vh; /* Make sure the form covers the viewport height */
+        margin: 0; /* Remove default margin */
+    }
+
+    /* Contact Form Styles */
+
+    #contact-container {
+        background-color: #fff;
+        padding: 10px 20px 30px 20px;
+        max-width: 100%;
+        border-radius: 7px;
+        margin-left:300px;
+        -webkit-border-radius: 7px;
+        -moz-border-radius: 7px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center; /* Center the image and form vertically */
+    }
+
+    #contact-container img {
+        max-width: 1000px; /* Adjust the image size as needed */
+        height: 200px; /* Maintain aspect ratio */
+        margin-right: 20px; /* Add some spacing between the image and form */
+    }
+
+    #contact-form {
+        flex: 1; /* Let the form take remaining width */
+    }
+
+    #contact-form input,
+    #contact-form select,
+    #contact-form textarea,
+    #contact-form label {
+        font-size: 15px;
+        margin-bottom: 2px;
+        font-family: Arial, sans-serif;
+    }
+
+    #contact-form input,
+    #contact-form select,
+    #contact-form textarea {
+        width: 100%;
+        background: #fff;
+        border: 0;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        border-radius: 4px;
+        margin-bottom: 25px;
+        padding: 5px;
+    }
+
+    #contact-form input:focus,
+    #contact-form select:focus,
+    #contact-form textarea:focus {
+        background-color: #E5E6E7;
+    }
+
+    #contact-form textarea {
+        width: 1000%;
+        height: 150px;
+    }
+
+    #contact-form button[type="submit"] {
+        cursor: pointer;
+        width: 100%;
+        border: none;
+        background: #CA6959;
+            color: #FFF;
+        margin: 0 0 5px;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+   
+
+    #contact-form button[type="submit"]:active {
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    input:required,
+    textarea:required {
+        box-shadow: none;
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        -o-box-shadow: none;
+    }
+
+    #contact-form .required {
+        font-weight: bold;
+        color: #E5E6E7;
+    }
+
+    /* Hide success/failure message
+   (especially since the php is missing) */
+
+    /* Make form look nice on smaller screens */
+    @media only screen and (max-width: 580px) {
+        #contact-container {
+            flex-direction: column; /* Stack image on top of the form */
+            align-items: center; /* Center both image and form horizontally */
+            text-align: center; /* Center the text in the form */
+        }
+
+        #contact-container img {
+            max-width: 100%; /* Adjust the image size for smaller screens */
+            margin-right: 0; /* Remove margin for small screens */
+            margin-bottom: 20px; /* Add spacing between image and form */
+        }
+
+        #contact-form {
+            width: 1000%;
+        }
+    }
+    #sidebar{
+	background: #fff;
+	width:200px;
+	height:100%;
+	display:block;
+	position:absolute;
+	left:-200px;
+	top:100px;
+    
+	transition:left 0.3s linear;
+}
+
+#sidebar.visible{
+	left:0px;
+	transition:left 0.3s linear;
+}
+
+ul{
+	margin:5px;
+	padding:10px;
+}
+
+ul li{
+	list-style:none;
+}
+
+ul li a{
+	background:#1C1E1F;
+	color:#ccc;
+	border-bottom:1px solid #111;
+	display:block;
+	width:180px;
+	padding:10px;
+	text-decoration: none;
+}
+
+#sidebar-btn{
+	display:inline-block;
+	vertical-align: middle;
+	width:20px;
+	height:15px;
+	cursor:pointer;
+	margin:20px;
+	position:absolute;
+	top:0px;
+	right:-60px;
+}
+
+#sidebar-btn span{
+	height:1px;
+	background:black;
+	margin-bottom:5px;
+	display:block;
+}
+
+#sidebar-btn span:nth-child(2){
+	width:75%;
+}
+
+#sidebar-btn span:nth-child(3){
+	width:50%;
+}
+
+header {
+  background-color: #CA6959;
+  color: #fff;
+  text-align: center;
+  display:flex;
+  padding: 1em;
+}
+footer {
+    background-color: #CA6959;
+    color: #fff;
+    text-align: center;
+    padding: 1em;
+    position: fixed;
+    bottom: 0;
+    width: 120%;
+}
+</style>
+
+<body>
+    <header>
+     
+      
+        <img src="data:image/png;base64,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" alt="img" width="110px" height="70px" />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h1>VASIREDDY VENKATADRI INSTITUTE OF TECHNOLOGY</h1>
+        <h4>(AUTONOMOUS)</h4> 
+      </header><br>
+      <div id="sidebar">
+
+		<ul>
+			<li><a href="#">Insert Marks</a></li>
+			<li><a href="#">Retreive</a></li>
+			<li><a href="#">Display</a></li>
+		</ul>
+
+		<div id="sidebar-btn">
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+
+	</div>
+    <div id="contact-container">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoWYq84BPuceyXxOKydsRrGAnOINB-nbXHxQ&usqp=CAU" alt="img" />
+        <div id="contact-form">
+            <form action="thanks.html">
+                <div>
+                    <label for="department">Select Department:</label>
+                    <select name="department" id="department" onchange="updateSemesters()">
+                        <option value="CSE">CSE</option>
+                        <option value="INF">INF</option>
+                        <option value="ECE">ECE</option>
+                        <option value="EEE">EEE</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="batch">Select Batch:</label>
+                    <select name="batch" id="batch" onchange="updateSemesters()">
+                        <option value="2020">2020</option>
+                        <option value="2021">2021</option>
+                        <option value="2022">2022</option>
+                        <option value="2023">2023</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="year">Select Year:</label>
+                    <select name="year" id="year" onchange="updateSemesters()">
+                        <option value="first">First Year</option>
+                        <option value="second">Second Year</option>
+                        <option value="third">Third Year</option>
+                        <option value="fourth">Fourth Year</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="semester">Select Semester:</label>
+                    <select name="semester" id="semester" onchange="updateSubjects()">
+                        <!-- Semester options will be populated dynamically -->
+                    </select>
+                </div>
+
+                <div>
+                    <label for="subject">Select Subject:</label>
+                    <select name="subject" id="subject" onchange="showMarksType()">
+                        <!-- Subjects options will be populated dynamically -->
+                    </select>
+                </div>
+                <div>
+                    <label for="marks-type">Select Marks Type:</label>
+                    <select name="marks-type" id="marks-type">
+                        <optgroup label="Internal Marks">
+                            <option value="mid-1">Mid-1</option>
+                            <option value="mid-2">Mid-2</option>
+                        </optgroup>
+                        <optgroup label="External Marks">
+                            <option value="sem-result">Semester Result</option>
+                        </optgroup>
+                    </select>&nbsp;&nbsp;
+                </div>
+                <div>
+                    <button name="submit" type="submit" id="submit">submit</button>
+                </div>
+            </form>
+        </div>
+   
+
+	
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script>
+
+	$(document).ready(function(){
+		$('#sidebar-btn').click(function(){
+			$('#sidebar').toggleClass('visible');
+		});
+	});
+
+
+        function updateSemesters() {
+            var department = document.getElementById("department").value;
+            var year = document.getElementById("year").value;
+            var batch = document.getElementById("batch").value;
+            var semesterSelect = document.getElementById("semester");
+            semesterSelect.innerHTML = "";
+
+            if (department === "INF" && batch === "2021" && year === "first") {
+                addSemesterOption(semesterSelect, "1-1");
+                addSemesterOption(semesterSelect, "1-2");
+            } else if (department === "INF" && batch === "2021" && year === "second") {
+                addSemesterOption(semesterSelect, "2-1");
+                addSemesterOption(semesterSelect, "2-2");
+            } else if (department === "INF" && year === "third") {
+                addSemesterOption(semesterSelect, "3-1");
+                addSemesterOption(semesterSelect, "3-2");
+            } else if (department === "INF" && year === "fourth") {
+                addSemesterOption(semesterSelect, "4-1");
+                addSemesterOption(semesterSelect, "4-2");
+            }
+            else if (department === "INF" && batch === "2020" && year === "first") {
+                addSemesterOption(semesterSelect, "1-1");
+                addSemesterOption(semesterSelect, "1-2");
+            } else if (department === "INF" && batch === "2020" && year === "second") {
+                addSemesterOption(semesterSelect, "2-1");
+                addSemesterOption(semesterSelect, "2-2");
+            } else if (department === "INF" && batch === "2020"&& year === "third") {
+                addSemesterOption(semesterSelect, "3-1");
+                addSemesterOption(semesterSelect, "3-2");
+            } else if (department === "INF" &&  batch === "2020"&& year === "fourth") {
+                addSemesterOption(semesterSelect, "4-1");
+                addSemesterOption(semesterSelect, "4-2");
+            }
+            else if (department === "INF" && batch === "2022" && year === "first") {
+                addSemesterOption(semesterSelect, "1-1");
+                addSemesterOption(semesterSelect, "1-2");
+            } else if (department === "INF" && batch === "2022" && year === "second") {
+                addSemesterOption(semesterSelect, "2-1");
+                addSemesterOption(semesterSelect, "2-2");
+            } else if (department === "INF" && batch === "2022"&& year === "third") {
+                addSemesterOption(semesterSelect, "3-1");
+                addSemesterOption(semesterSelect, "3-2");
+            } else if (department === "INF" &&  batch === "2022"&& year === "fourth") {
+                addSemesterOption(semesterSelect, "4-1");
+                addSemesterOption(semesterSelect, "4-2");
+            }
+            else if (department === "INF" && batch === "2023" && year === "first") {
+                addSemesterOption(semesterSelect, "1-1");
+                addSemesterOption(semesterSelect, "1-2");
+            } else if (department === "INF" && batch === "2023" && year === "second") {
+                addSemesterOption(semesterSelect, "2-1");
+                addSemesterOption(semesterSelect, "2-2");
+            } else if (department === "INF" && batch === "2023"&& year === "third") {
+                addSemesterOption(semesterSelect, "3-1");
+                addSemesterOption(semesterSelect, "3-2");
+            } else if (department === "INF" &&  batch === "2023"&& year === "fourth") {
+                addSemesterOption(semesterSelect, "4-1");
+                addSemesterOption(semesterSelect, "4-2");
+            }
+
+
+
+            // Call the function to update subjects based on the selected semester
+            updateSubjects();
+
+            // Reset and hide the "Select Marks Type" dropdown
+            resetMarksType();
+        }
+
+        function addSemesterOption(selectElement, semester) {
+            var option = document.createElement("option");
+            option.value = semester;
+            option.textContent = semester;
+            selectElement.appendChild(option);
+        }
+
+        function updateSubjects() {
+            var semester = document.getElementById("semester").value;
+            var subjectSelect = document.getElementById("subject");
+            subjectSelect.innerHTML = "";
+
+            if (semester === "1-1") {
+                addSubjectOption(subjectSelect, "Mathematics-1");
+                addSubjectOption(subjectSelect, "Problem Solving Using C");
+                addSubjectOption(subjectSelect, "BEEE");
+                addSubjectOption(subjectSelect, "Applied Chemistry");
+                // Add more subjects for 1-1 if needed
+            } else if (semester === "1-2") {
+                addSubjectOption(subjectSelect, "Mathematics-2");
+                addSubjectOption(subjectSelect, "Problem Solving Using Python");
+                addSubjectOption(subjectSelect, "Applied Physics");
+                addSubjectOption(subjectSelect, "Digital Logic Design");
+                addSubjectOption(subjectSelect, "Communicative English");
+                // Add more subjects for 1-2 if needed
+            } else if (semester === "2-1") {
+                addSubjectOption(subjectSelect, "Mathematics-3");
+                addSubjectOption(subjectSelect, "MFCS");
+                addSubjectOption(subjectSelect, "JAVA");
+                addSubjectOption(subjectSelect, "Software Engineering");
+                addSubjectOption(subjectSelect, "Data Structures");
+                addSubjectOption(subjectSelect, "EITK");
+
+                // Add subjects for 2-1
+            } else if (semester === "2-2") {
+                addSubjectOption(subjectSelect, "Probability and Statistics");
+                addSubjectOption(subjectSelect, "Computer Organization");
+                addSubjectOption(subjectSelect, "DBMS");
+                addSubjectOption(subjectSelect, "Advanced Java Programming");
+                addSubjectOption(subjectSelect, "Operating Systems");
+                // Add subjects for 2-2
+            } // Add conditions for other semesters
+            else if (semester === "3-1") {
+                addSubjectOption(subjectSelect, "Artificial Intelligence");
+                addSubjectOption(subjectSelect, "Computer Networks");
+                addSubjectOption(subjectSelect, "Front-end Development");
+                addSubjectOption(subjectSelect, "DataWareHouse and DataWareMining");
+                addSubjectOption(subjectSelect, "ATCD");
+                // Add subjects for 2-1
+            } else if (semester === "3-2") {
+                addSubjectOption(subjectSelect, "Subject A");
+                addSubjectOption(subjectSelect, "Subject B");
+                // Add subjects for 2-1
+            } else if (semester === "4-1") {
+                addSubjectOption(subjectSelect, "Subject A");
+                addSubjectOption(subjectSelect, "Subject B");
+                // Add subjects for 2-1
+            } else if (semester === "4-2") {
+                addSubjectOption(subjectSelect, "Subject B");
+                addSubjectOption(subjectSelect, "Subject A");
+                // Add subjects for 2-1
+            }
+            resetMarksType();
+        }
+
+        function addSubjectOption(selectElement, subject) {
+            var option = document.createElement("option");
+            option.value = subject;
+            option.textContent = subject;
+            selectElement.appendChild(option);
+        }
+    </script>
+    <footer>
+        <p>&copy;2023. VVIT. Designed by Shape5.com Joomla Templ.</p>
+      </footer>
+</body>
+
+</html>

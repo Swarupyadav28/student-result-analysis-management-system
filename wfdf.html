@@ -1,0 +1,122 @@
+<!-- HTML form -->
+<html>
+    <head>
+    <link rel="stylesheet" type="text/css" href="finish1.css">
+</head>
+<body>
+
+            <div class="div1">
+            <div class="main">
+
+           <div class="logo">
+<ul>
+<li class="active"><a href="homepage.html" class="fa fa-home">Home</a></li>
+<li><a href="contacts.html" class="fa fa-phone">Contact</a></li>
+<li ><a href="#" class="fa fa-user">login</a></li>
+</ul>
+            <img src="https://image3.mouthshut.com/images/imagesp/925716682s.jpg" alt="helo">
+        
+           
+</div>  
+</div>
+</div>
+
+<h1 style="font-size:35px"> Semester Results</h1>
+<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+    
+    <select name="sem">
+        <option value="">Select semester</option>
+        <option value="1-1">1-1</option>
+        <option value="1-2">1-2</option>
+        <option value="2-1">2-1</option>
+        <option value="2-2">2-2</option>
+        <option value="3-1">3-1</option>
+        <option value="3-2">3-2</option>
+        <option value="4-1">4-1</option>
+    
+        <!-- add more options as needed -->
+    </select>
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>
+
+<?php
+// Configuration
+$db_host = 'localhost';
+$db_username = 'root';
+$db_password = '';
+$db_name = '2018_2022';
+
+// Create connection
+$conn = new mysqli($db_host, $db_username, $db_password, $db_name);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Get year from dropdown
+if (isset($_POST['sem'])) {
+    $sem = $_POST['sem'];
+    $tableName = str_replace("-", "_", $sem); // replace - with _ for table name
+
+    // Query to retrieve data from selected year table
+    $query = "SELECT * FROM "  .$tableName;
+    $result = $conn->query($query);
+    
+    if ($result->num_rows > 0) {
+        echo "<table border='1'>";
+        echo "<tr><th>SNO</th><th>HT.NO</th><th>Name of the Stuednt</th><th>ENG G</th><th>ENG C</th><th>ENG GP</th><th>M-I G</th><th>M-I C</th><th>M-I GP</th><th>M-II G</th><th>M-II C</th><th>M-II GP</th><th>PHY G</th><th>M-I G</th><th>M-I C</th><th>PHY G</th><th>M-I G</th><th>M-I C</th><th>PHY GP</th><th>CP G</th><th>CP C</th><th>CP GP</th><th>ED G</th><th>ED C</th><th>ED GP</th><th>ENGL G</th><th>ENGL C</th><th>ENGL GP</th><th>PHYL G</th><th>PHYL C</th><th>PHYL GP</th><th>CP G</th><th>CP C</th><th>CP GP</th><th>TC</th><th>TGP</th><th>RES</th><th>SGPA</th><th>Backlogs</th></tr>";
+
+        while($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<td>" . $row["S.NO"] . "</td>";
+            echo "<td>" . $row["H.T.NO"] . "</td>";
+            echo "<td>" . $row["Name of the Student"] . "</td>";
+            echo "<td>" . $row["ENG-I G"] . "</td>";
+            echo "<td>" . $row["ENG-I C"] . "</td>";
+            echo "<td>" . $row["ENG-1 GP"] . "</td>";
+            echo "<td>" . $row["M-I G"] . "</td>";
+            echo "<td>" . $row["M-I C"] . "</td>";
+            echo "<td>" . $row["M-I GP"] . "</td>";
+            echo "<td>" . $row["M-II G"] . "</td>";
+            echo "<td>" . $row["M-II C"] . "</td>";
+            echo "<td>" . $row["M-II GP"] . "</td>";
+            echo "<td>" . $row["PHY G"] . "</td>";
+            echo "<td>" . $row["PHY C"] . "</td>";
+            echo "<td>" . $row["PHY GP"] . "</td>";
+            echo "<td>" . $row["CP G"] . "</td>";
+            echo "<td>" . $row["CP C"] . "</td>";
+            echo "<td>" . $row["CP GP"] . "</td>";
+            echo "<td>" . $row["ED G"] . "</td>";
+            echo "<td>" . $row["ED C"] . "</td>";
+            echo "<td>" . $row["ED GP"] . "</td>";
+            echo "<td>" . $row["ENGL G"] . "</td>";
+            echo "<td>" . $row["ENGL C"] . "</td>";
+            echo "<td>" . $row["ENGL GP"] . "</td>";
+            echo "<td>" . $row["PHYL G"] . "</td>";
+            echo "<td>" . $row["PHYL C"] . "</td>";
+            echo "<td>" . $row["PHYL GP"] . "</td>";
+            echo "<td>" . $row["CPL G"] . "</td>";
+            echo "<td>" . $row["CPL C"] . "</td>";
+            echo "<td>" . $row["CPL GP"] . "</td>";
+            echo "<td>" . $row["TC"] . "</td>";
+            echo "<td>" . $row["TGP"] . "</td>";
+            echo "<td>" . $row["RES"] . "</td>";
+            echo "<td>" . $row["SGPA"] . "</td>";
+            echo "<td>" . $row["Backlogs"] . "</td>";
+            
+
+            echo "</tr>";
+        }
+
+        echo "</table>";
+    } else {
+        echo "No data found for selected year.";
+    }
+}
+
+// Close connection
+$conn->close();
+?>

@@ -1,0 +1,258 @@
+.background-image {
+    margin: 0;
+    padding: 0;
+    background: url("https://www.vvitguntur.com/images/slider3/vvit_drone_4k-min.jpeg") no-repeat center/cover;
+    width: 100%;
+    min-height: 800px;
+    position: relative;
+
+}
+
+.main {
+
+    max-width: 1200px;
+    margin: auto;
+}
+
+.logo img {
+    position: relative;
+    padding: 15px 20px;
+    width: 200px;
+    height: 100px;
+
+}
+
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+
+
+.marquee-container {
+
+    position: relative;
+    width: 100%;
+    height: 25vh;
+    ;
+    /* Adjust height as needed */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav {
+    height: 20px;
+    width: 100%;
+
+
+}
+
+ul {
+
+    line-style-type: none;
+    float: right;
+}
+
+ul li {
+    display: inline-block;
+    font-size: 18px;
+    font-size: 25px;
+}
+
+
+nav button {
+
+    width: 100px;
+    text-align: center;
+    text-decoration: none;
+    padding: 5px 5px;
+    float: right;/top bottom / left right/
+}
+
+nav button:hover {
+    background-color: purple;
+}
+
+ul li a {
+    border: 1px solid transparent;
+    color: white;
+    padding: 5px 0px;
+    transition: 0.5s ease;
+    text-decoration: none;
+    font-size: 100px;
+}
+
+ul li a:hover {
+    color: purple;
+}
+
+.marquee-text {
+    color: orange;
+
+    font-size: 50px;
+    position: relative;
+
+}
+
+@keyframes marqueeAnimation {
+    0% {
+        left: 100%;
+    }
+
+    100% {
+        left: -100%;
+    }
+}
+
+iframe {
+    margin: 0px;
+    padding: 100px;
+    width: 90%;
+    height: 60vh;/viewport height/ padding: 20px 20px;
+
+
+}
+
+.map {
+    margin-top: 10px;
+    background-color: #E55B13;
+    padding-top: 50px;
+    padding-left: 100px;
+}
+
+
+
+h4 {
+    color: black;
+    font-size: medium;
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+    font-size: small;
+}
+
+.one {
+
+    margin: 5px;
+    padding: 10px;
+    background-color: aqua;
+}
+
+.two {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+aside {
+    width: 70%;
+    font-style: italic;
+
+}
+
+a {
+
+    text-align: center;
+    line-height: 30px;
+    margin: 20px;
+
+}
+
+a i {
+    font-size: 30px;
+    transition: all 0.3s linear;
+}
+
+a:hover i {
+    transform: scale(1.4);
+}
+
+.fa-facebook {
+
+    color: blue;
+
+}
+
+.fa-twitter {
+    color: blue;
+}
+
+.fa-google {
+
+    color: red;
+
+}
+
+.fa-instagram {
+    color: #e84393;
+}
+
+.wow {
+    display: flex;
+    justify-content: left;
+    margin: 0px;
+    padding: 0px;
+}
+
+.menu-icon {
+    font-size: 30px;
+    cursor: pointer;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    color: black;
+    /* Toggle bar symbol color black */
+    z-index: 2;
+}
+
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 80px;
+    background-color: white;
+    /* Sidebar background color black */
+}
+
+.sidebar a {
+    padding: 0px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    color: black;
+    /* Sidebar elements color white */
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.sidebar .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 36px;
+    color: white;
+}
+
+.sidebar hr {
+    margin: 0;
+    border: 0;
+    border-top: 1px solid black;
+    /* Lines color white */
+}

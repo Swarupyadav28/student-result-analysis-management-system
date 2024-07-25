@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <style>
+         html {
+            background-size: cover;
+            height:auto;
+            background-color: #000;
+        }
+        body {         /form body/
+            color: black;
+            background: #fff;
+            font-family: Arial, sans-serif;
+
+            justify-content: center; /* Center the form horizontally */
+            align-items: center; /* Center the form vertically */
+            min-height: 140vh; /* Make sure the form covers the viewport height */
+            margin: 0; /* Remove default margin */
+        }
+        /* Contact Form Styles */
+        /* Make form look nice on smaller screens */
+        @media only screen and (max-width: 9000px) {
+
+        }
+    .center{
+      position: absolute;
+      top: 51%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.05);
+    }
+    .center h1{
+      text-align: center;
+      padding: 20px 0;
+      border-bottom: 1px solid silver;
+    }
+    .center form{
+      padding: 0 40px;
+      box-sizing: border-box;
+    }
+    .container {
+        max-width: 400px;
+        margin: 0 auto;
+        background-color:white;
+        padding: 20px;
+        margin-top: 0px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+        width: calc(100% - 22px);
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    button {
+        background-color:#CA6959;
+        color:white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 18px;
+    }
+
+    button:hover {
+        background-color:#CA6959 ;
+    }
+    header {
+      background-color: #CA6959;
+      color: #fff;
+      text-align: center;
+      display:flex;
+      padding: 1em;
+    }
+    footer {
+      background-color: #CA6959;
+      color: #fff;
+      text-align: center;
+      padding: 1em;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      display: none; /* Initially hide the footer */
+      transition: display 0.5s; /* Add a smooth transition effect */
+    }
+  </style>
+
+  <body>
+    <header>
+      <img
+        src="data:image/png;base64,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"
+        alt="img"
+        width="110px"
+        height="70px"
+      />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <h1>VASIREDDY VENKATADRI INSTITUTE OF TECHNOLOGY</h1>
+      <p>(AUTONOMOUS)</p>
+    </header>
+    <br />
+    <div class="center">
+      <div class="container">
+        <h1>Faculty Registration</h1>
+        <form action="submit_faculty_form.php" method="post">
+          <div class="form-group">
+            <label for="name"><b>Faculty Name:</b></label>
+            <input type="text" id="name" name="name" required />
+          </div>
+          <div class="form-group">
+            <label for="email"><b> Faculty Email Id:</b></label>
+            <input type="email" id="email" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="department"><b>Department:</b></label>
+            <input type="text" id="department" name="department" required />
+          </div>
+          <div class="form-group">
+            <label for="phone no"> <b>Faculty Phone No:</b></label>
+            <input type="text" id="phone no" name="phone no" required />
+          </div>
+          <button type="submit">Add</button>
+        </form>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var footer = document.querySelector("footer");
+
+        window.addEventListener("scroll", function () {
+          if (window.scrollY > 100) {
+            footer.style.display =
+              "block"; /* Show the footer when scrolled down */
+          } else {
+            footer.style.display =
+              "none"; /* Hide the footer when scrolled to the top */
+          }
+        });
+      });
+    </script>
+
+    <footer>
+      <p>&copy;2024. VVIT. Designed by Shape5.com Joomla Templ.</p>
+    </footer>
+  </body>
+</html>

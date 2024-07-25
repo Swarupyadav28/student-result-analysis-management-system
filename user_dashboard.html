@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Admin Dashboard | VVIT</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+
+        background-size: cover;
+        background-position: center;
+        margin: 0;
+        padding: 0;
+
+        display: flex;
+        flex-direction: column;
+
+        min-height: 100vh;
+      }
+
+      header {
+        background-color: #ca6959;
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+        width: 100%;
+        border-bottom: 2px solid #555;
+      }
+
+      h1 {
+        margin: 20px 0;
+      }
+
+      div {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      .image-button-container {
+        position: relative;
+        margin: 20px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        background-color: rgba(
+          255,
+          255,
+          255,
+          0.9
+        ); /* Lightened background color */
+      }
+
+      .image-button {
+        cursor: pointer;
+        width: 100px;
+        height: 100px;
+        transition: transform 0.3s ease-in-out;
+        display: block;
+        padding: 20px;
+      }
+
+      .image-button-text {
+        position: absolute;
+        top: 90%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 14px;
+        text-align: center;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: #fff;
+        width: 100%;
+        padding: 5px;
+        box-sizing: border-box;
+      }
+
+      .image-button-container:hover .image-button {
+        transform: scale(1.2);
+      }
+
+      .image-button-container:hover .image-button-text {
+        opacity: 1;
+      }
+      footer {
+        background-color: #ca6959;
+        color: #fff;
+        text-align: center;
+        padding: 1em;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+
+        transition: display 0.5s; /* Add a smooth transition effect */
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>User Dashboard | VVIT</h1>
+    </header>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <div>
+      <div class="image-button-container">
+        <a href="./login.html">
+          <img
+            src="data:image/png;base64,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"
+            alt="Insert"
+            class="image-button"
+          />
+        </a>
+
+        <span class="image-button-text">Insert</span>
+      </div>
+      
+      <div class="image-button-container">
+        <a href="./displays.html">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSLqxltnLIMl1qYzTP0slRkldx2KBZfjhBdGqO59W8I5G5GH0MyVFK1uQWZnxQ5YXWHXU&usqp=CAU"
+            class="image-button"
+          />
+        </a>
+
+        <span class="image-button-text">Display</span>
+      </div>
+      <div class="image-button-container">
+        <a href="./retrieve.html">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRML9OOPfvq_4wijNXJVeZp9PeB7GKeWL2gIQ&usqp=CAU"
+            class="image-button"
+          />
+        </a>
+
+        <span class="image-button-text">Retrieve</span>
+      </div>
+    </div>
+    <footer>
+      <p>&copy;2023. VVIT. Designed by Shape5.com Joomla Templ.</p>
+    </footer>
+  </body>
+</html>

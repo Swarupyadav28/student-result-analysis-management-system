@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semester Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #e98778;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 1.9);
+            width: 100%;
+            max-width: 600px; /* Adjust as needed */
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .draggable {
+            width: 100px;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: move;
+            user-select: none;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .dropdown {
+            margin-top: 20px;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .dropdown button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: left; /* Align text to the left */
+            width: 100%; /* Full width of the container */
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 100%; /* Match the button width */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            z-index: 1;
+            top: 100%; /* Position below the button */
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            border-bottom: 1px solid #f1f1f1;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        #downloadButton {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+        }
+
+        #downloadButton:hover {
+            background-color: #218838;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        select, input[type="submit"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Semester Results</h1>
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+            <select name="sem">
+                <option value="">Select semester</option>
+                <option value="1-1">1-1</option>
+                <option value="1-2">1-2</option>
+                <option value="2-1">2-1</option>
+                <option value="2-2">2-2</option>
+                <option value="3-1">3-1</option>
+                <option value="3-2">3-2</option>
+                <option value="4-1">4-1</option>
+            </select>
+            <input type="submit" value="Submit">
+        </form>
+
+        <?php
+        // Configuration
+        $db_host = 'localhost';
+        $db_username = 'root';
+        $db_password = '';
+        $db_name = '2018_2022';
+
+        // Create connection
+        $conn = new mysqli($db_host, $db_username, $db_password, $db_name);
+
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        // Get year from dropdown
+        if (isset($_POST['sem'])) {
+            $sem = $_POST['sem'];
+            $tableName = str_replace("-", "_", $sem); // replace - with _ for table name
+
+            // Query to retrieve data from selected year table
+            $query = "SELECT * FROM " . $tableName;
+            $result = $conn->query($query);
+            $countQuery = "SELECT COUNT(*) as student_count FROM " . $tableName;
+            $countResult = $conn->query($countQuery);
+            $studentCount = $countResult->fetch_assoc()['student_count'];
+            $adjustedStudentCount = $studentCount - 7;
+
+            echo "<h2>Number of Students Appeared for Exam: " . $adjustedStudentCount . "</h2>";
+
+            if ($result->num_rows > 0) {
+                echo "<table>";
+                echo "<tr><th>SNO</th><th>HT.NO</th><th>Name of the Student</th><th>ENG G</th><th>ENG C</th><th>ENG GP</th><th>M-I G</th><th>M-I C</th><th>M-I GP</th><th>M-II G</th><th>M-II C</th><th>M-II GP</th><th>PHY G</th><th>M-I G</th><th>M-I C</th><th>PHY G</th><th>M-I G</th><th>M-I C</th><th>PHY GP</th><th>CP G</th><th>CP C</th><th>CP GP</th><th>ED G</th><th>ED C</th><th>ED GP</th><th>ENGL G</th><th>ENGL C</th><th>ENGL GP</th><th>PHYL G</th><th>PHYL C</th><th>PHYL GP</th><th>CP G</th><th>CP C</th><th>CP GP</th><th>TC</th><th>TGP</th><th>RES</th><th>SGPA</th><th>Backlogs</th></tr>";
+
+                while ($row = $result->fetch_assoc()) {
+                    echo "<tr>";
+                    echo "<td>" . $row["COL 1"] . "</td>";
+                    echo "<td>" . $row["COL 2"] . "</td>";
+                    echo "<td>" . $row["COL 3"] . "</td>";
+                    echo "<td>" . $row["COL 4"] . "</td>";
+                    echo "<td>" . $row["COL 5"] . "</td>";
+                    echo "<td>" . $row["COL 6"] . "</td>";
+                    echo "<td>" . $row["COL 7"] . "</td>";
+                    echo "<td>" . $row["COL 8"] . "</td>";
+                    echo "<td>" . $row["COL 9"] . "</td>";
+                    echo "<td>" . $row["COL 10"] . "</td>";
+                    echo "<td>" . $row["COL 11"] . "</td>";
+                    echo "<td>" . $row["COL 12"] . "</td>";
+                    echo "<td>" . $row["COL 13"] . "</td>";
+                    echo "<td>" . $row["COL 14"] . "</td>";
+                    echo "<td>" . $row["COL 15"] . "</td>";
+                    echo "<td>" . $row["COL 16"] . "</td>";
+                    echo "<td>" . $row["COL 17"] . "</td>";
+                    echo "<td>" . $row["COL 18"] . "</td>";
+                    echo "<td>" . $row["COL 19"] . "</td>";
+                    echo "<td>" . $row["COL 20"] . "</td>";
+                    echo "<td>" . $row["COL 21"] . "</td>";
+                    echo "<td>" . $row["COL 22"] . "</td>";
+                    echo "<td>" . $row["COL 23"] . "</td>";
+                    echo "<td>" . $row["COL 24"] . "</td>";
+                    echo "<td>" . $row["COL 25"] . "</td>";
+                    echo "<td>" . $row["COL 26"] . "</td>";
+                    echo "<td>" . $row["COL 27"] . "</td>";
+                    echo "<td>" . $row["COL 28"] . "</td>";
+                    echo "<td>" . $row["COL 28"] . "</td>";
+            echo "<td>" . $row["COL 29"] . "</td>";
+            echo "<td>" . $row["COL 30"] . "</td>";
+            echo "<td>" . $row["COL 31"] . "</td>";
+            echo "<td>" . $row["COL 32"] . "</td>";
+            echo "<td>" . $row["COL 33"] . "</td>";
+            echo "<td>" . $row["COL 34"] . "</td>";
+            echo "<td>" . $row["COL 35"] . "</td>";
+            
+
+            echo "</tr>";
+        }
+
+        echo "</table>";
+    } else {
+        echo "No data found for selected year.";
+    }
+}
+
+// Close connection
+$conn->close();
+?>
